@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarizr</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h4>Final Year Project</h4>
+    </header>
+
+    <div class="container content">
+        <h2>SUMMARIZR</h2>
+        <p>Analyze and Summarize your articles on the fly..</p>
+
+        <div class="article-form">
+            <form action="post" id="form">
+                <div class="form-group">
+                    <label for="title" class="label">Title</label>
+                    <input type="text" name="title" id="title_field" class="form-control" placeholder="Title goes here">
+                </div>
+                <div class="form-group">
+                    <label for="article" class="label">Article</label>
+                    <textarea name="article" id="article_field" cols="30" rows="10" placeholder="Paste the article body here.." class="form-control"></textarea>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" name="summarize" class="btn btn-warning">Generate Summary</button>
+                    <button type="submit" name="analyze" class="btn btn-info ">Analyze Article</button>
+                    <button type="submit" name="reset" class="btn btn-danger">Reset Form</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="article-summary-container">
+            <div class="article-title"></div>
+            <div class="article-summary"></div>
+            <div class="form-group text-center">
+                <button type="submit" name="previous" class="btn btn-warning">Go Back</button>
+                <button type="submit" name="print" class="btn btn-success ">Print Summary</button>
+                <button type="submit" name="analyze" class="btn btn-info ">Analyze Article</button>
+            </div>
+        </div>
+    </div>
+
+    <!--<script type="module" src="assets/js/summarizer.js"></script>-->
+    <script src="bundle.js"></script>
+    <script type="text/javascript" src="assets/js/analyzer.js"></script>
+</body>
+
+</html>

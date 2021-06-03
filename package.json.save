@@ -1,0 +1,15 @@
+{
+  "name": "summarizer",
+  "version": "1.0.0",
+  "description": "Article summarizer and analyzer",
+  "main": "index.html",
+  "dependencies": {
+    "node-summarizer": "^1.0.7"
+  },
+  "devDependencies": {},
+´  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ade Kasumu",
+  "license": "MIT"
+}
