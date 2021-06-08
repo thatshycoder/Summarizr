@@ -1,17 +1,23 @@
 body {
-    background-color: #ccc;
-    padding-bottom: 60px;
+    background-color: #bb8102;
+    padding: 50px;
 }
 
-header {
-    background-color: rgb(218, 214, 214);
-    padding: 30px;
-    margin-bottom: 50px;
+#appTitle {
+    color: #bb8007;
+    font-weight: 400;
+    text-shadow: 2px 1px 3px #f5d9d9;
+}
+
+#appTagline {
+    color: #292929;
 }
 
 .content {
     background-color: #fff;
+    box-shadow: 3px 0px 11px 6px #af7600;
     padding: 40px;
+    margin-bottom: 10px;
 }
 
 .article-form {
@@ -32,4 +38,21 @@ header {
 .article-summary {
     font-size: 14px;
     margin-bottom: 30px;
+}
+
+.analysis-score {
+    margin-top: 50px;
+    margin-bottom: 40px;
+    font-size: 12px;
+}
+
+.analysis-score .score-breakdown {
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.plagiarism-score,
+.content-depth-score {
+    font-size: 80px;
+    font-weight: 600;
 }

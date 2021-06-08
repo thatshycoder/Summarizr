@@ -1,0 +1,4 @@
+// const hooke = require('hookejs')
+
+// let plagiarisedText = `Sherlock Holmes (/ˈʃɜːrlɒk ˈhoʊmz/ or /-ˈhoʊlmz/) is a fictional private detective created by British author Sir Arthur Conan Doyle. Referring to himself as a "consulting detective" in the stories, Holmes is known for his proficiency with observation, deduction, forensic science, and logical reasoning that borders on the fantastic, which he employs when investigating cases for a wide variety of clients, including Scotland Yard.`
+// console.log(hooke.matchPrint({ text: plagiarisedText, apikey: 'AIzaSyBwTow21XLd7m7CbLqsPJT7wCNW_6RDNzI', engineid: '628cfa44bf7f2362d' }));
