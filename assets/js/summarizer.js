@@ -1,3 +1,7 @@
+/**
+ * Deals with generating the summary of an article.
+ */
+
 // Form
 const title = document.querySelector('input[name=title]');
 const articleForm = document.querySelector('textarea[name=article]');
@@ -6,7 +10,7 @@ const articleFormContainer = document.querySelector('.article-form')
 const articleSummaryContainer = document.querySelector('.article-summary-container');
 const articleTitle = document.querySelector('.article-title');
 const articleSummary = document.querySelector('.article-summary');
-const summarySentenceLength = 5;
+const summarySentenceLength = document.querySelector('input[name=sentence_length]');
 
 // Buttons
 const summaryButton = document.querySelector('button[name=summarize]');
@@ -32,19 +36,37 @@ function summarizeArticle(e) {
 function generateSummary(text, apiKey) {
     if (text !== null && text !== '') {
 
-        let xhttp = new XMLHttpRequest();
-        let params = `?key=${apiKey}&txt=${text}&sentences=2`;
+        let sentenceLength = 2;
 
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+        if (summarySentenceLength.value !== '') {
 
-                let summary = JSON.parse(this.responseText);
-                displayArticleSummary(summary.summary);
+            let errorMessage = document.querySelector('.error-message');
+
+            if (summarySentenceLength.value.match(/\d/g)) {
+
+                if (summarySentenceLength.value > 5) {
+                    errorMessage.style.display = 'block';
+                } else {
+
+                    errorMessage.style.display = 'none';
+                    sentenceLength = summarySentenceLength.value;
+
+                    let xhttp = new XMLHttpRequest();
+                    let params = `?key=${apiKey}&txt=${text}&sentences=${sentenceLength}`;
+
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+
+                            let summary = JSON.parse(this.responseText);
+                            displayArticleSummary(summary.summary);
+                        }
+                    };
+
+                    xhttp.open('POST', 'https://api.meaningcloud.com/summarization-1.0' + params, true);
+                    xhttp.send();
+                }
             }
-        };
-
-        xhttp.open('POST', 'https://api.meaningcloud.com/summarization-1.0' + params, true);
-        xhttp.send();
+        }
     }
 }
 
@@ -53,6 +75,14 @@ function displayArticleSummary(summary) {
     articleSummaryContainer.style.display = 'block';
     articleTitle.value = title;
     articleSummary.innerHTML = summary;
+}
+
+analyzeButton.addEventListener('click', goToAnalysisPage);
+
+function goToAnalysisPage() {
+    let text = articleForm.value;
+    localStorage.setItem('article', text);
+    window.location.href = 'analysis.html';
 }
 
 resetButton.addEventListener('click', resetForm);
