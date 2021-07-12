@@ -1,3 +1,4 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 /**
  * Deals with analyzing an article. Analysis includes
  * checking plagiarism and determining content depth. 
@@ -212,3 +213,4 @@ function getAPIAccessToken() {
  * {access_token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc…fapZmk-hNOuWOkxBCft8VMD91ECPNg0sF0XQ1v_68y-tnjj_Q", .
  * issued: "2021-06-15T22:02:34.8827184Z", .expires: "2021-06-17T22:02:34.8827184Z"}
  */
+},{}]},{},[1]);

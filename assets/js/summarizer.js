@@ -5,7 +5,6 @@
 // Form
 const title = document.querySelector('input[name=title]');
 const articleForm = document.querySelector('textarea[name=article]');
-const articleFormTitle = document.querySelector('input[name=title]');
 const articleFormContainer = document.querySelector('.article-form')
 const articleSummaryContainer = document.querySelector('.article-summary-container');
 const articleTitle = document.querySelector('.article-title');
@@ -18,6 +17,40 @@ const analyzeButton = document.querySelector('button[name=analyze]');
 const resetButton = document.querySelector('button[name=reset]');
 const previousButton = document.querySelector('button[name=previous]');
 const printButton = document.querySelector('button[name=print]');
+
+let errorMessage = document.querySelector('.error-message');
+
+// Set default input values and state
+const persistedArticle = JSON.parse(localStorage.getItem('article'));
+
+if (persistedArticle != null) {
+
+    if (persistedArticle.text !== null || persistArticleData.text !== '') {
+
+        summarySentenceLength.value = persistedArticle.length;
+        articleForm.value = persistedArticle.text;
+
+        analyzeButton.classList.remove('btn-disabled');
+        analyzeButton.disabled = false;
+    }
+}
+
+articleForm.addEventListener('input', enableAnalyzeButton);
+
+function enableAnalyzeButton() {
+    if (this.value !== '') {
+
+        analyzeButton.classList.remove('btn-disabled');
+        analyzeButton.disabled = false;
+
+        // hide any existing error message
+        errorMessage.style.display = 'none';
+
+    } else {
+        analyzeButton.classList.add('btn-disabled');
+        analyzeButton.disabled = true;
+    }
+}
 
 /**
  * Article summarization logic
@@ -34,25 +67,29 @@ function summarizeArticle(e) {
 }
 
 function generateSummary(text, apiKey) {
+
     if (text !== null && text !== '') {
 
+        errorMessage.style.display = 'none';
         let sentenceLength = 2;
 
         if (summarySentenceLength.value !== '') {
 
-            let errorMessage = document.querySelector('.error-message');
-
             if (summarySentenceLength.value.match(/\d/g)) {
 
                 if (summarySentenceLength.value > 5) {
+
+                    errorMessage.innerHTML = 'Sentences length should not be more than 5';
                     errorMessage.style.display = 'block';
                 } else {
 
                     errorMessage.style.display = 'none';
                     sentenceLength = summarySentenceLength.value;
 
+                    persistArticleData();
+
                     let xhttp = new XMLHttpRequest();
-                    let params = `?key=${apiKey}&txt=${text}&sentences=${sentenceLength}`;
+                    let params = encodeURI(`?key=${apiKey}&txt=${text}&sentences=${sentenceLength}`);
 
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
@@ -67,6 +104,9 @@ function generateSummary(text, apiKey) {
                 }
             }
         }
+    } else {
+        errorMessage.innerHTML = 'Article cannot be empty';
+        errorMessage.style.display = 'block';
     }
 }
 
@@ -80,9 +120,18 @@ function displayArticleSummary(summary) {
 analyzeButton.addEventListener('click', goToAnalysisPage);
 
 function goToAnalysisPage() {
-    let text = articleForm.value;
-    localStorage.setItem('article', text);
+    persistArticleData();
     window.location.href = 'analysis.html';
+}
+
+function persistArticleData() {
+    let article = articleForm.value;
+    let articleData = {
+        length: summarySentenceLength.value,
+        text: article
+    }
+
+    localStorage.setItem('article', JSON.stringify(articleData));
 }
 
 resetButton.addEventListener('click', resetForm);
@@ -90,8 +139,11 @@ resetButton.addEventListener('click', resetForm);
 function resetForm(e) {
     e.preventDefault();
 
-    articleFormTitle.value = '';
+    summarySentenceLength.value = '';
     articleForm.value = '';
+    analyzeButton.classList.add('btn-disabled');
+    analyzeButton.disabled = true;
+    localStorage.clear();
 }
 
 previousButton.addEventListener('click', displayArticleForm);

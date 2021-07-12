@@ -49,12 +49,18 @@ body {
 .analysis-score {
     margin-top: 50px;
     margin-bottom: 40px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .analysis-score .score-breakdown {
     margin-top: 30px;
-    font-size: 14px;
+}
+
+.analysis-score .content-depth-score-summary,
+.analysis-score .plagiarism-score-summary {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .plagiarism-score,
