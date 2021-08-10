@@ -97,7 +97,7 @@ function calculateContentDepth(article) {
             contentDepthScore += 10;
         }
 
-        suggestions.push('&cross; Article is not well written. Consider using keywords to make artice easier to understand.');
+        suggestions.push('&cross; Article is not well written. Consider using linking words to make artice easier to understand.');
     }
 
     contentDepthData.score = contentDepthScore;
