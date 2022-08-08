@@ -1,6 +1,6 @@
 # Summarizr
 
-A web based article summarizer and analyzer. Built with VanillaJS
+A web based article summarizer and content depth analyzer. Built with VanillaJS
 
 ## Setup
 
