@@ -1,6 +1,6 @@
 # Summarizr
 
-A web based article summarizer and analyzer.
+A web based article summarizer and analyzer. Built with VanillaJS
 
 ## Setup
 
