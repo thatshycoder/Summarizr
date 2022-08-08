@@ -1,22 +1,19 @@
 {
     "name": "summarizer",
     "version": "1.0.0",
-    "description": "Summarize articlex",
+    "description": "Summarize articles on the fly",
     "main": "index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "watch": "watchify ./assets/js/summarizer.js -o ./bundle.js"
+        "bundle-summarizer": "browserify ./assets/js/summarizer.js -o ./assets/js/bundle-summarizer.js",
+        "bundle-analyzer": "browserify ./assets/js/analyzer.js -o ./assets/js/bundle-analyzer.js"
     },
-    "author": "Ade Kasumu",
+    "author": "Shycoder",
     "license": "MIT",
     "dependencies": {
-        "@trashhalo/node-summarizer": "^1.0.9",
         "browserify": "^17.0.0",
-        "lexrank.js": "^1.4.0",
-        "plagiarism-checker": "^3.0.1",
-        "textrank": "^1.0.5",
-        "watchify": "^4.0.0",
-        "wordnet-db": "^3.1.14"
+        "dotenv": "^16.0.1",
+        "watchify": "^4.0.0"
     },
     "private": true
 }
