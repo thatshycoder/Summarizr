@@ -1,4 +1,4 @@
-
+require('../js/config');
 
 // Form fields
 const title = document.querySelector("input[name=title]");
@@ -57,6 +57,10 @@ function summarizeArticle(e) {
 
 	let text = articleForm.value;
 	let apiKey = ""; // or directly paste your api key here
+
+	if(process.env.API_KEY !== undefined) {
+		apiKey = process.env.API_KEY;
+	}
 
 	generateSummary(text, apiKey);
 }
