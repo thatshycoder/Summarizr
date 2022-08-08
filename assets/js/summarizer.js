@@ -1,6 +1,4 @@
-require("dotenv").config({ path: '../../.env' });
 
-console.log(process.env.API_KEY);
 
 // Form fields
 const title = document.querySelector("input[name=title]");
@@ -58,7 +56,7 @@ function summarizeArticle(e) {
 	e.preventDefault();
 
 	let text = articleForm.value;
-	let apiKey = process.env.API_KEY;
+	let apiKey = ""; // or directly paste your api key here
 
 	generateSummary(text, apiKey);
 }
