@@ -186,11 +186,11 @@ process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
 (function (process){(function (){
-process.env.API_KEY = "";
+process.env.API_KEY = '1a8816f5601d3fd6216a8f2c6406d2c6';
 }).call(this)}).call(this,require('_process'))
 },{"_process":1}],3:[function(require,module,exports){
 (function (process){(function (){
-require('../js/config');
+require("../js/config");
 
 // Form fields
 const title = document.querySelector("input[name=title]");
@@ -250,15 +250,21 @@ function summarizeArticle(e) {
 	let text = articleForm.value;
 	let apiKey = ""; // or directly paste your api key here
 
-	if(process.env.API_KEY !== undefined) {
+	if (process.env.API_KEY !== undefined) {
 		apiKey = process.env.API_KEY;
 	}
 
-	generateSummary(text, apiKey);
+	if(countInputWords(text) < 1000) {
+		generateSummary(text, apiKey);
+	} else {
+		alert("Article should not be greater than 1000 words");
+	}
 }
 
 function generateSummary(text, apiKey) {
 	if (text !== null && text !== "") {
+		text = encodeURIComponent(text);
+
 		errorMessage.style.display = "none";
 		let sentenceLength = 2;
 
@@ -276,24 +282,33 @@ function generateSummary(text, apiKey) {
 
 					persistArticleData();
 
-					let xhttp = new XMLHttpRequest();
-					let params = encodeURI(
-						`?key=${apiKey}&txt=${text}&sentences=${sentenceLength}`
-					);
+					try {
+						
+						let xhttp = new XMLHttpRequest();
+						let params = `?key=${apiKey}&txt=${text}&sentences=${sentenceLength}`;
+					
+						xhttp.onreadystatechange = function () {
+							if (this.readyState == 4 && this.status == 200) {
+								try {
+									let summary = JSON.parse(this.responseText);
+									displayArticleSummary(summary.summary);
+								} catch (err) {
+									alert("Something went wrong. Article length should be 1000 words max.");
+								}
+							}
+						};
+	
+						xhttp.open(
+							"POST",
+							"https://api.meaningcloud.com/summarization-1.0" + params,
+							true
+						);
+						xhttp.send();
+						xhttp.abort;
 
-					xhttp.onreadystatechange = function () {
-						if (this.readyState == 4 && this.status == 200) {
-							let summary = JSON.parse(this.responseText);
-							displayArticleSummary(summary.summary);
-						}
-					};
-
-					xhttp.open(
-						"POST",
-						"https://api.meaningcloud.com/summarization-1.0" + params,
-						true
-					);
-					xhttp.send();
+					} catch(err) {
+						alert("Something went wrong when generating summary");
+					}
 				}
 			}
 		}
@@ -352,5 +367,14 @@ function printSummary() {
 	window.print();
 }
 
+
+function countInputWords(input) {
+	let wordCount = input.replace(/(^\s*)|(\s*$)/gi, "");
+	wordCount = wordCount.replace(/[ ]{2,}/gi, " ");
+	wordCount = wordCount.replace(/\n /, "\n");
+	wordCount = wordCount.split(" ").length;
+
+	return wordCount;
+}
 }).call(this)}).call(this,require('_process'))
 },{"../js/config":2,"_process":1}]},{},[3]);
