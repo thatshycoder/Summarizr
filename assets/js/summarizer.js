@@ -1,4 +1,4 @@
-require('../js/config');
+require("../js/config");
 
 // Form fields
 const title = document.querySelector("input[name=title]");
@@ -58,7 +58,7 @@ function summarizeArticle(e) {
 	let text = articleForm.value;
 	let apiKey = ""; // or directly paste your api key here
 
-	if(process.env.API_KEY !== undefined) {
+	if (process.env.API_KEY !== undefined) {
 		apiKey = process.env.API_KEY;
 	}
 
@@ -91,8 +91,12 @@ function generateSummary(text, apiKey) {
 
 					xhttp.onreadystatechange = function () {
 						if (this.readyState == 4 && this.status == 200) {
-							let summary = JSON.parse(this.responseText);
-							displayArticleSummary(summary.summary);
+							try {
+								let summary = JSON.parse(this.responseText);
+								displayArticleSummary(summary.summary);
+							} catch (err) {
+								alert("Something went wrong. Article length should be 1000 words max.");
+							}
 						}
 					};
 
